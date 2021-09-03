@@ -94,7 +94,7 @@ typedef enum
     channel_AN_I_B,//Channel Name:AN1   Assigned to:Shared Channel
     channel_AN_U_A,//Channel Name:AN2   Assigned to:Shared Channel
     channel_AN_U_B,//Channel Name:AN3   Assigned to:Shared Channel
-    channel_AN_AIN_SPD,//Channel Name:AN4   Assigned to:Shared Channel
+    channel_AN_SPD,//Channel Name:AN4   Assigned to:Shared Channel
     channel_AN_U_DC,//Channel Name:AN5   Assigned to:Shared Channel
     channel_CTMU_Temp,//Channel Name:CTMU Temp   Assigned to:Shared Channel
     channel_CTMU,//Channel Name:CTMU   Assigned to:Shared Channel
@@ -352,7 +352,7 @@ inline static void ADC1_ChannelSelect( ADC1_CHANNEL channel )
         case channel_AN_U_B:
                 AD1CHS0bits.CH0SA= 0x3;
                 break;
-        case channel_AN_AIN_SPD:
+        case channel_AN_SPD:
                 AD1CHS0bits.CH0SA= 0x4;
                 break;
         case channel_AN_U_DC:
@@ -416,7 +416,7 @@ inline static uint16_t ADC1_ConversionResultGet( ADC1_CHANNEL channel )
         case channel_AN_I_B:
         case channel_AN_U_A:
         case channel_AN_U_B:
-        case channel_AN_AIN_SPD:
+        case channel_AN_SPD:
         case channel_AN_U_DC:
         case channel_CTMU_Temp:
         case channel_CTMU:
@@ -724,20 +724,20 @@ typedef enum
  */
 typedef enum 
 {
-    ADC1_SAMPLING_SOURCE_PWM3  =  0x2,
-    ADC1_SAMPLING_SOURCE_MANUAL  =  0x0,
-    ADC1_SAMPLING_SOURCE_TMR5  =  0x4,
-    ADC1_SAMPLING_SOURCE_PWM2  =  0x1,
-    ADC1_SAMPLING_SOURCE_PTGO12  =  0x3,
-    ADC1_SAMPLING_SOURCE_PTGO14  =  0x5,
-    ADC1_SAMPLING_SOURCE_PWM1  =  0x0,
     ADC1_SAMPLING_SOURCE_INT0  =  0x1,
-    ADC1_SAMPLING_SOURCE_PTGO13  =  0x4,
-    ADC1_SAMPLING_SOURCE_CTMU  =  0x6,
+    ADC1_SAMPLING_SOURCE_PWM3  =  0x2,
     ADC1_SAMPLING_SOURCE_TMR3  =  0x2,
-    ADC1_SAMPLING_SOURCE_AUTO  =  0x7,
+    ADC1_SAMPLING_SOURCE_PTGO12  =  0x3,
+    ADC1_SAMPLING_SOURCE_TMR5  =  0x4,
     ADC1_SAMPLING_SOURCE_PWM_PRIMARY  =  0x3,
+    ADC1_SAMPLING_SOURCE_PWM2  =  0x1,
+    ADC1_SAMPLING_SOURCE_MANUAL  =  0x0,
+    ADC1_SAMPLING_SOURCE_PWM1  =  0x0,
     ADC1_SAMPLING_SOURCE_PTGO15  =  0x6,
+    ADC1_SAMPLING_SOURCE_PTGO13  =  0x4,
+    ADC1_SAMPLING_SOURCE_PTGO14  =  0x5,
+    ADC1_SAMPLING_SOURCE_AUTO  =  0x7,
+    ADC1_SAMPLING_SOURCE_CTMU  =  0x6,
 } ADC1_SAMPLING_SOURCE;
 
 /** ADC Conversion Channel Type Definition

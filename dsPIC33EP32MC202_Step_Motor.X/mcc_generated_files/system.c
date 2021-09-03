@@ -67,7 +67,7 @@
 #pragma config FCKSM = CSECMD    //Clock Switching Mode bits->Clock switching is enabled,Fail-safe Clock Monitor is disabled
 
 // FOSCSEL
-#pragma config FNOSC = FRCDIVN    //Oscillator Source Selection->Internal Fast RC (FRC) Oscillator with postscaler
+#pragma config FNOSC = FRC    //Oscillator Source Selection->FRC
 #pragma config PWMLOCK = ON    //PWM Lock Enable bit->Certain PWM registers may only be written after key sequence
 #pragma config IESO = OFF    //Two-speed Oscillator Start-up Enable bit->Start up with user-selected oscillator source
 
@@ -79,12 +79,13 @@
 #include "clock.h"
 #include "system.h"
 #include "system_types.h"
-#include "i2c1.h"
 #include "interrupt_manager.h"
 #include "traps.h"
 #include "adc1.h"
-#include "uart1.h"
 #include "pwm.h"
+#include "i2c1.h"
+#include "uart1.h"
+#include "ext_int.h"
 
 void SYSTEM_Initialize(void)
 {
@@ -95,6 +96,7 @@ void SYSTEM_Initialize(void)
     I2C1_Initialize();
     ADC1_Initialize();
     PWM_Initialize();
+    EXT_INT_Initialize();
     INTERRUPT_GlobalEnable();
     SYSTEM_CORCONModeOperatingSet(CORCON_MODE_PORVALUES);
 }

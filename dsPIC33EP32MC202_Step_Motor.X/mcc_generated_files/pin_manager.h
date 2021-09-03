@@ -1241,11 +1241,11 @@
   @Example
     <code>
     // Set RB2 high (1)
-    channel_AN_AIN_SPD_SetHigh();
+    channel_AN_SPD_SetHigh();
     </code>
 
 */
-#define channel_AN_AIN_SPD_SetHigh()          (_LATB2 = 1)
+#define channel_AN_SPD_SetHigh()          (_LATB2 = 1)
 /**
   @Summary
     Sets the GPIO pin, RB2, low using LATB2.
@@ -1265,11 +1265,11 @@
   @Example
     <code>
     // Set RB2 low (0)
-    channel_AN_AIN_SPD_SetLow();
+    channel_AN_SPD_SetLow();
     </code>
 
 */
-#define channel_AN_AIN_SPD_SetLow()           (_LATB2 = 0)
+#define channel_AN_SPD_SetLow()           (_LATB2 = 0)
 /**
   @Summary
     Toggles the GPIO pin, RB2, using LATB2.
@@ -1289,11 +1289,11 @@
   @Example
     <code>
     // Toggle RB2
-    channel_AN_AIN_SPD_Toggle();
+    channel_AN_SPD_Toggle();
     </code>
 
 */
-#define channel_AN_AIN_SPD_Toggle()           (_LATB2 ^= 1)
+#define channel_AN_SPD_Toggle()           (_LATB2 ^= 1)
 /**
   @Summary
     Reads the value of the GPIO pin, RB2.
@@ -1315,11 +1315,11 @@
     uint16_t portValue;
 
     // Read RB2
-    postValue = channel_AN_AIN_SPD_GetValue();
+    postValue = channel_AN_SPD_GetValue();
     </code>
 
 */
-#define channel_AN_AIN_SPD_GetValue()         _RB2
+#define channel_AN_SPD_GetValue()         _RB2
 /**
   @Summary
     Configures the GPIO pin, RB2, as an input.
@@ -1339,11 +1339,11 @@
   @Example
     <code>
     // Sets the RB2 as an input
-    channel_AN_AIN_SPD_SetDigitalInput();
+    channel_AN_SPD_SetDigitalInput();
     </code>
 
 */
-#define channel_AN_AIN_SPD_SetDigitalInput()  (_TRISB2 = 1)
+#define channel_AN_SPD_SetDigitalInput()  (_TRISB2 = 1)
 /**
   @Summary
     Configures the GPIO pin, RB2, as an output.
@@ -1363,11 +1363,11 @@
   @Example
     <code>
     // Sets the RB2 as an output
-    channel_AN_AIN_SPD_SetDigitalOutput();
+    channel_AN_SPD_SetDigitalOutput();
     </code>
 
 */
-#define channel_AN_AIN_SPD_SetDigitalOutput() (_TRISB2 = 0)
+#define channel_AN_SPD_SetDigitalOutput() (_TRISB2 = 0)
 /**
   @Summary
     Sets the GPIO pin, RB3, high using LATB3.

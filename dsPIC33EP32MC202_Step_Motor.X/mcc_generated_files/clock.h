@@ -5,10 +5,10 @@
     Microchip Technology Inc.
 
   @File Name:
-    clock.c
+    clock.h
 
   @Summary:
-    This is the clock.c file generated using PIC24 / dsPIC33 / PIC32MM MCUs
+    This is the clock.h file generated using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description:
     This header file provides implementations for driver APIs for all modules selected in the GUI.
@@ -42,34 +42,39 @@
     TERMS.
 */
 
-#include <stdint.h>
-#include "xc.h"
-#include "clock.h"
+#ifndef CLOCK_H
+#define	CLOCK_H
 
-void CLOCK_Initialize(void)
-{
-    // FRCDIV FRC/2; PLLPRE 2; DOZE 1:8; PLLPOST 1:4; DOZEN disabled; ROI disabled; 
-    CLKDIV = 0x3140;
-    // TUN Center frequency; 
-    OSCTUN = 0x00;
-    // ROON disabled; ROSEL FOSC; RODIV 0; ROSSLP disabled; 
-    REFOCON = 0x00;
-    // PLLDIV 64; 
-    PLLFBD = 0x40;
-    // AD1MD enabled; PWMMD enabled; T3MD enabled; T4MD enabled; T1MD enabled; U2MD enabled; T2MD enabled; U1MD enabled; QEI1MD enabled; SPI2MD enabled; SPI1MD enabled; T5MD enabled; I2C1MD enabled; 
-    PMD1 = 0x00;
-    // IC4MD enabled; IC3MD enabled; OC1MD enabled; IC2MD enabled; OC2MD enabled; IC1MD enabled; OC3MD enabled; OC4MD enabled; 
-    PMD2 = 0x00;
-    // CMPMD enabled; CRCMD enabled; I2C2MD enabled; 
-    PMD3 = 0x00;
-    // CTMUMD enabled; REFOMD enabled; 
-    PMD4 = 0x00;
-    // PWM2MD enabled; PWM1MD enabled; PWM3MD enabled; 
-    PMD6 = 0x00;
-    // PTGMD enabled; DMA0MD enabled; 
-    PMD7 = 0x00;
-    // CF no clock failure; NOSC FRCDIV; CLKLOCK unlocked; OSWEN Switch is Complete; 
-    __builtin_write_OSCCONH((uint8_t) (0x07));
-    __builtin_write_OSCCONL((uint8_t) (0x00));
-}
+/**
+  Section: Included Files
+*/
 
+#include <stdbool.h>
+
+#ifndef _XTAL_FREQ
+#define _XTAL_FREQ  30401250UL
+#endif
+
+#define CLOCK_SystemFrequencyGet()        (30401250UL)
+
+#define CLOCK_PeripheralFrequencyGet()    (CLOCK_SystemFrequencyGet() / 2)
+
+#define CLOCK_InstructionFrequencyGet()   (CLOCK_SystemFrequencyGet() / 2)
+/**
+ * @Param
+    none
+ * @Returns
+    none
+ * @Description
+    Initializes the oscillator to the default states configured in the
+ *                  MCC GUI
+ * @Example
+    CLOCK_Initialize(void);
+ */
+void CLOCK_Initialize(void);
+
+
+#endif	/* CLOCK_H */
+/**
+ End of File
+*/

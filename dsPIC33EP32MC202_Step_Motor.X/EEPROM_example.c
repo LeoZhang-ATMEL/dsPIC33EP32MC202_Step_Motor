@@ -1,27 +1,5 @@
-/**
-  Generated main.c file from MPLAB Code Configurator
-
-  @Company
-    Microchip Technology Inc.
-
-  @File Name
-    main.c
-
-  @Summary
-    This is the generated main.c using PIC24 / dsPIC33 / PIC32MM MCUs.
-
-  @Description
-    This source file provides main entry point for system initialization and application code development.
-    Generation Information :
-        Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - 1.170.0
-        Device            :  dsPIC33EP32MC202
-    The generated drivers are tested against the following:
-        Compiler          :  XC16 v1.61
-        MPLAB 	          :  MPLAB X v5.45
-*/
-
 /*
-    (c) 2020 Microchip Technology Inc. and its subsidiaries. You may use this
+    (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
     software and any derivatives exclusively with Microchip products.
 
     THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
@@ -41,26 +19,25 @@
     MICROCHIP PROVIDES THIS SOFTWARE CONDITIONALLY UPON YOUR ACCEPTANCE OF THESE
     TERMS.
 */
-
-/**
-  Section: Included Files
-*/
+#include <stdio.h>
 #include "mcc_generated_files/system.h"
+#include "EEPROM_example.h"
+#include "EEPROM_driver.h"
 
-/*
-                         Main application
- */
-int main(void)
+uint8_t dataByte;
+uint8_t dataBuffer[8] = {0x55, 0xFF, 0xAA, 0xCC, 0x01, 0x02, 0x03, 0x04};
+uint8_t pageBuffer[PAGESIZE];
+
+
+void EEPROM_example(void)
 {
-    // initialize the device
-    SYSTEM_Initialize();
-    while (1)
-    {
-        // Add your application code
-    }
-    return 1; 
+    // EEPROM_SetDeviceAddress (0x00); //optional
+    dataByte = EEPROM_ReadOneByte          (0x0010);
+    EEPROM_PageWrite            (0x0020, pageBuffer);
+
+    EEPROM_SequentialRead       ( 0x0020, dataBuffer, 8);
 }
-/**
- End of File
-*/
+
+
+
 
