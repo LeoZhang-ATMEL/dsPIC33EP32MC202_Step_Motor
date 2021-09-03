@@ -1,0 +1,114 @@
+## SCL Builder Setup File: Do not edit!!
+
+## VERSION: MPLAB X
+## FORMAT:  v2.00.01
+## DEVICE:  DSPIC33EP32MC202
+
+## PINREGACTIONS
+cyc
+No Repeat
+--
+&
+## ADVPINREGACTIONS
+--
+&
+--
+COND2
+Any
+
+
+
+0
+cyc
+
+--
+&
+## CLOCK
+&
+## STIMULUSFILE
+&
+## RESPONSEFILE
+&
+## ASYNCH
+Pin
+RA3
+Set High
+
+Temperature OK
+-1
+--
+Pin
+RA3
+Set Low
+
+Temperature Error
+-1
+--
+Pin
+RB5
+Set High
+
+MotorB OK
+-1
+--
+Pin
+RB5
+Set Low
+
+MotorB Error
+-1
+--
+Pin
+RB6
+Set High
+
+MotorA OK
+-1
+--
+Pin
+RB6
+Set Low
+
+Motor Error
+-1
+--
+Pin
+RA2
+Set Low
+
+Motor Start (EN_C)
+-1
+--
+Pin
+RA2
+Set High
+
+Motor Stop (EN_C)
+-1
+--
+Pin
+AN0
+Set Voltage
+2 V
+Phase A Current OK
+-1
+--
+Pin
+AN1
+Set Voltage
+0 V
+Phase A Current Error
+-1
+--
+Pin
+AN0
+Set High
+
+
+-1
+--
+&
+## ADVANCEDSCL
+
+1
+&

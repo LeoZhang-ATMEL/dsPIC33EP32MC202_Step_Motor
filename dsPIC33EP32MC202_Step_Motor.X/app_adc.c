@@ -45,6 +45,7 @@ APP_ADC_VALUES adc_value;
 void APP_ADC_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
+    ADC1_Enable();
     app_adcData.state = APP_ADC_INIT;
 }
 

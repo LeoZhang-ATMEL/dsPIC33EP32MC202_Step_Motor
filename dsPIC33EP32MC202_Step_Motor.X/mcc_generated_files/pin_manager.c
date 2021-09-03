@@ -62,7 +62,7 @@ void PIN_MANAGER_Initialize (void)
      * Setting the Output Latch SFR(s)
      ***************************************************************************/
     LATA = 0x0000;
-    LATB = 0x0000;
+    LATB = 0x0010;
 
     /****************************************************************************
      * Setting the GPIO Direction SFR(s)
@@ -95,8 +95,8 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     __builtin_write_OSCCONL(OSCCON & 0xbf); // unlock PPS
 
-    RPINR18bits.U1RXR = 0x0014;    //RA4->UART1:U1RX
     RPOR1bits.RP36R = 0x0001;    //RB4->UART1:U1TX
+    RPINR18bits.U1RXR = 0x0014;    //RA4->UART1:U1RX
 
     __builtin_write_OSCCONL(OSCCON | 0x40); // lock PPS
 }
