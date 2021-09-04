@@ -47,7 +47,6 @@
 */
 #include "mcc_generated_files/system.h"
 
-volatile uint32_t pulse_c = 0;
 /*
                          Main application
  */

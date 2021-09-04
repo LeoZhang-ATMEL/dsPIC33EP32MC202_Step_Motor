@@ -56,20 +56,20 @@ void PWM_Initialize (void)
 {
     // PCLKDIV 1; 
     PTCON2 = 0x00;
-    // PTPER 0; 
-    PTPER = 0x00;
+    // PTPER 61440; 
+    PTPER = 0xF000;
     // SEVTCMP 0; 
     SEVTCMP = 0x00;
-    // MDC 0; 
-    MDC = 0x00;
+    // MDC 12288; 
+    MDC = 0x3000;
     // CHOPCLK 0; CHPCLKEN disabled; 
     CHOP = 0x00;
     // PWMKEY 0; 
     PWMKEY = 0x00;
-    // MDCS Primary; FLTIEN disabled; CAM Edge Aligned; DTC Positive dead time for all Output modes; TRGIEN disabled; XPRES disabled; ITB Master; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
-    PWMCON1 = 0x00;
-    // MDCS Primary; FLTIEN disabled; CAM Edge Aligned; DTC Positive dead time for all Output modes; TRGIEN disabled; XPRES disabled; ITB Master; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
-    PWMCON2 = 0x00;
+    // MDCS Primary; FLTIEN disabled; CAM Edge Aligned; DTC Dead-Time Compensation mode; TRGIEN disabled; XPRES disabled; ITB Primary; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
+    PWMCON1 = 0x2C0;
+    // MDCS Primary; FLTIEN disabled; CAM Edge Aligned; DTC Positive dead time for all Output modes; TRGIEN disabled; XPRES disabled; ITB Primary; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
+    PWMCON2 = 0x200;
     // MDCS Primary; FLTIEN disabled; CAM Edge Aligned; DTC Positive dead time for all Output modes; TRGIEN disabled; XPRES disabled; ITB Master; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
     PWMCON3 = 0x00;
     //FLTDAT PWM1L Low, PWM1H Low; SWAP disabled; OVRENH disabled; PENL enabled; PMOD Complementary Output Mode; OVRENL disabled; OSYNC disabled; POLL disabled; PENH enabled; CLDAT PWM1L Low, PWM1H Low; OVRDAT PWM1L Low, PWM1H Low; POLH disabled; 
@@ -84,28 +84,28 @@ void PWM_Initialize (void)
     __builtin_write_PWMSFR(&FCLCON2, 0xF8, &PWMKEY);
     //FLTPOL disabled; CLPOL disabled; CLSRC FLT1; CLMOD disabled; FLTMOD PWM3H, PWM3L pins to FLTDAT values- Latched; FLTSRC FLT32; 
     __builtin_write_PWMSFR(&FCLCON3, 0xF8, &PWMKEY);
-    // PDC1 0; 
-    PDC1 = 0x00;
-    // PDC2 0; 
-    PDC2 = 0x00;
+    // PDC1 1792; 
+    PDC1 = 0x700;
+    // PDC2 1792; 
+    PDC2 = 0x700;
     // PDC3 0; 
     PDC3 = 0x00;
-    // PHASE1 0; 
-    PHASE1 = 0x00;
-    // PHASE2 0; 
-    PHASE2 = 0x00;
+    // PHASE1 3041; 
+    PHASE1 = 0xBE1;
+    // PHASE2 3041; 
+    PHASE2 = 0xBE1;
     // PHASE3 0; 
     PHASE3 = 0x00;
-    // DTR1 0; 
-    DTR1 = 0x00;
-    // DTR2 0; 
-    DTR2 = 0x00;
+    // DTR1 256; 
+    DTR1 = 0x100;
+    // DTR2 256; 
+    DTR2 = 0x100;
     // DTR3 0; 
     DTR3 = 0x00;
-    // ALTDTR1 0; 
-    ALTDTR1 = 0x00;
-    // ALTDTR2 0; 
-    ALTDTR2 = 0x00;
+    // ALTDTR1 256; 
+    ALTDTR1 = 0x100;
+    // ALTDTR2 256; 
+    ALTDTR2 = 0x100;
     // ALTDTR3 0; 
     ALTDTR3 = 0x00;
     // TRGCMP 0; 
@@ -139,8 +139,8 @@ void PWM_Initialize (void)
     // CHOPLEN disabled; CHOPHEN disabled; BLANKSEL No state blanking; CHOPSEL No state blanking; 
     AUXCON3 = 0x00;
 
-    // SYNCOEN disabled; SEIEN disabled; SESTAT disabled; SEVTPS 1; SYNCSRC SYNCI1; SYNCEN disabled; PTSIDL disabled; PTEN disabled; EIPU disabled; SYNCPOL disabled; 
-    PTCON = 0x00;
+    // SYNCOEN disabled; SEIEN disabled; SESTAT disabled; SEVTPS 1; SYNCSRC SYNCI1; SYNCEN disabled; PTSIDL disabled; PTEN enabled; EIPU disabled; SYNCPOL disabled; 
+    PTCON = 0x8000;
 }
 
 void __attribute__ ((weak)) PWM_SpecialEvent_CallBack(void)

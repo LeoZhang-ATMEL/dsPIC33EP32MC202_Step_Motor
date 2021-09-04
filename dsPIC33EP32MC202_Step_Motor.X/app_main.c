@@ -7,6 +7,16 @@
 #include "mcc_generated_files/mcc.h"
 #include "app_adc.h"
 
+// Counter of the PIN16 (PULSE_C) for negative edge
+volatile uint32_t pulse_c = 0;
+
+// Timer ticks counter for 50us period
+volatile uint32_t app_ticks = 0;
+
+void Timer_50us_Handler(void)
+{
+    app_ticks++;
+}
 void APP_MAIN_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
@@ -16,7 +26,7 @@ void APP_MAIN_Initialize ( void )
     
     /* Set PWM_EN High after init */
     IO_PWM_EN_SetHigh();
-
+    TMR5_SetInterruptHandler(Timer_50us_Handler);
     return;
 }
 void test_func(void)
@@ -37,31 +47,35 @@ void APP_MAIN_Tasks ( void )
     
     // Check if EN == 0
     if (IO_EN_C_GetValue() == 1) {
-        _LATB12 = 0;
-        _LATB13 = 0;
-        _LATB14 = 0;
-        _LATB15 = 0;
+        PWM_Disable();
         return;
     }
     // Check the Temperature and Fault from driver
     if (!IO_T_V_GetValue() || !IO_FAULT1_GetValue() || !IO_FAULT2_GetValue()) {
         // Disable PWM
-        _LATB12 = 0;
-        _LATB13 = 0;
-        _LATB14 = 0;
-        _LATB15 = 0;
+        PWM_Disable();
         return;
     }
     
     if (adc_value.i_a > 512) {
         // Disable PWM
-        _LATB12 = 0;
-        _LATB13 = 0;
-        _LATB14 = 0;
-        _LATB15 = 0;
+        PWM_Disable();
         return;
     }
+    // PWM_GENERATOR_1 = Motor A
+    // PWM_GENERATOR_2 = Motor B
+    // PWM Tick was 16.4 ns (Tcy)
+    // Period default value was 0xBE1/3041 (50us)
+    // PWM_DutyCycleSet(PWM_GENERATOR_1, 3041/2); // Set to 50% duty cycle
+    // PWM_DutyCycleSet(PWM_GENERATOR_2, 3041/2); // Set to 50% duty cycle
     
+    PWM_Enable();
+    PWM_DutyCycleSet(PWM_GENERATOR_1, 3041/2);
+    /* 1 seconds timeout */
+    if (app_ticks >= 20000) {
+        app_ticks = 0;
+    }
+    /*
     if (IO_DIR_C_GetValue()) {
         _LATB12 = 0;
         _LATB13 = 0;
@@ -73,7 +87,7 @@ void APP_MAIN_Tasks ( void )
         _LATB14 = 0;
         _LATB15 = 0;
     }
-    
+    */
     // Write EEPROM at address 0 with 8 bytes
     // uint8_t data[8] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
     // EEPROM_PageWrite(0x00, data);
