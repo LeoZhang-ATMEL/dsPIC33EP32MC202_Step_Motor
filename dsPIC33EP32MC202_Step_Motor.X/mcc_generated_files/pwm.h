@@ -1421,27 +1421,24 @@ void PWM_Generator1_CallBack(void);
 
 /**
   @Summary
-    Polled implementation
+    Assigns a function pointer with a PWM Generator1 callback address.
 
   @Description
-    This routine is used to implement the tasks for polled implementations.
-  
-  @Preconditions
-    PWM_Initialize() function should have been 
-    called before calling this function.
- 
-  @Returns 
-    None
- 
+    This routine assigns a function pointer with a PWM Generator1 
+    callback address.
+
   @Param
+    Address of the callback routine.
+
+  @Returns
     None
  
-  @Example
-    <code>    
-    PWM_Generator1_Tasks();
-    </code>   
+  @Example 
+    <code>
+    PWM_SetGenerator1InterruptHandler(&PWM_Generator1_CallBack);
+    </code>
 */
-void PWM_Generator1_Tasks(void);
+void PWM_SetGenerator1InterruptHandler(void *handler);
 
 /**
   @Summary

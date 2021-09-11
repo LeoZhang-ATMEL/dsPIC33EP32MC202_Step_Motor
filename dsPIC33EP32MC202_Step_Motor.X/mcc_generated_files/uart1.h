@@ -8,20 +8,20 @@
     uart1.h
 
   @Summary
-    This is the generated header file for the UART1 driver using Foundation Services Library
+    This is the generated header file for the UART1 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
     This header file provides APIs for driver for UART1.
     Generation Information :
-        Product Revision  :  Foundation Services Library - pic24-dspic-pic32mm : v1.26
+        Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - 1.170.0
         Device            :  dsPIC33EP32MC202
     The generated drivers are tested against the following:
-        Compiler          :  XC16 1.30
-        MPLAB             :  MPLAB X 3.45
+        Compiler          :  XC16 v1.61
+        MPLAB             :  MPLAB X v5.45
 */
 
 /*
-    (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
+    (c) 2020 Microchip Technology Inc. and its subsidiaries. You may use this
     software and any derivatives exclusively with Microchip products.
 
     THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
@@ -59,72 +59,75 @@
 #endif
 
 /**
-  Section: UART1 Driver Routines
+  Section: UART1 APIs
 */
+
 /**
   @Summary
-    Initializes the UART
+    Initialization routine that takes inputs from the UART1 GUI.
 
   @Description
-    This routine initializes the UART module.
-    This routine must be called before any other UART routine 
-    is called.
-    
-  @Preconditions
-    None.
+    This routine initializes the UART1 driver.
+    This routine must be called before any other UART1 routine is called.
 
-  @Returns
-    None.
+  @Preconditions
+    None
 
   @Param
-    None.
+    None
 
-  @Comment
+  @Returns
+    None
+
+  @Example
+    None.
     
 */
+
 void UART1_Initialize(void);
 
 /**
   @Summary
-    Read a byte of data from the UART1
+    Read a byte of data from the UART1.
 
   @Description
-    This routine reads a byte of data from the UART1.  It will
-    block until a byte of data is available.  If you do not wish to block, call 
-    the UART1_IsTxReady() function to check to see if there is
-    data available to read first.
+    This routine reads a byte of data from the UART1.
 
   @Preconditions
-    UART1_Initialize function should have been called 
-    before calling this function. 
+    UART1_Initialize() function should have been called
+    before calling this function. This is a blocking function.
+    So the receive status should be checked to see
+    if the receiver is not empty before calling this function.
 
   @Param
-    None.
+    None
 
   @Returns
     A data byte received by the driver.
 */
+
 uint8_t UART1_Read(void);
 
 /**
   @Summary
-    Writes a byte of data to the UART1
+    Writes a byte of data to the UART1.
 
   @Description
-    This routine writes a byte of data to the UART1. This function
-    will block if this transmit buffer is currently full until the transmit 
-    buffer becomes available.  If you do not wish to block, call the
-    UART1_IsTxReady() function to check on the transmit
-    availability.
+    This routine writes a byte of data to the UART1.
 
   @Preconditions
     UART1_Initialize() function should have been called
-    before calling this function.
+    before calling this function. The transfer status should be checked to see
+    if transmitter is not busy before calling this function.
 
   @Param
-    byte - data to be written
+    txData  - Data byte to write to the UART1
+
+  @Returns
+    None
 */
-void UART1_Write(uint8_t byte);
+
+void UART1_Write(uint8_t txData);
 
 /**
   @Description
@@ -156,48 +159,12 @@ bool UART1_IsTxReady(void);
 */
 bool UART1_IsTxDone(void);
 
-
-
-
-
-
-
 /*******************************************************************************
 
   !!! Deprecated API and types !!!
   !!! These functions will not be supported in future releases !!!
 
 *******************************************************************************/
-
-/**
-  @Description
-    Indicates of there is data available to read.
-
-  @Returns
-    true if byte can be read.
-    false if byte can't be read right now.
-*/
-bool __attribute__((deprecated)) UART1_is_rx_ready(void);
-
-/**
-  @Description
-    Indicates if a byte can be written.
- 
- @Returns
-    true if byte can be written.
-    false if byte can't be written right now.
-*/
-bool __attribute__((deprecated)) UART1_is_tx_ready(void);
-
-/**
-  @Description
-    Indicates if all bytes have been transferred.
- 
- @Returns
-    true if all bytes transfered.
-    false if there is still data pending to transfer.
-*/
-bool __attribute__((deprecated)) UART1_is_tx_done(void);
 
 /** UART1 Driver Hardware Flags
 
@@ -230,6 +197,52 @@ typedef enum
 
 /**
   @Summary
+    Allows setting of a the enable bit for the UART1 mode
+
+  @Description
+    This routine is used to enable the UART1
+  
+  @Preconditions
+    UART1_Initialize() function should have been 
+    called before calling this function.
+ 
+  @Returns
+    None
+
+  @Param
+    None
+  
+  @Example
+    Refer to UART1_Initialize(); for an example
+*/
+
+void __attribute__((deprecated)) UART1_Enable(void);
+
+/**
+  @Summary
+    Allows setting of a the disable bit for the UART1 mode
+
+  @Description
+    This routine is used to disable the UART1
+  
+  @Preconditions
+    UART1_Initialize() function should have been 
+    called before calling this function.
+ 
+  @Returns
+    None
+
+  @Param
+    None
+  
+  @Example
+    Refer to UART1_Initialize(); for an example
+*/
+
+void __attribute__((deprecated)) UART1_Disable(void);
+
+/**
+  @Summary
     Returns the transmitter and receiver status
 
   @Description
@@ -259,21 +272,7 @@ typedef enum
         }
     </code>
 */
-UART1_STATUS __attribute__((deprecated)) UART1_StatusGet (void );
-
-/**
-  @Summary
-    Indicates if data is ready for reading
-
-  @Preconditions
-    UART1_Initialize() function should have been called 
-    before calling this function
-
-  @Returns
-    true - data available to read.
-    false - no data available
-*/
-bool __attribute__((deprecated)) UART1_DataReady(void); 
+uint16_t __attribute__((deprecated)) UART1_StatusGet (void );
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 
@@ -282,4 +281,3 @@ bool __attribute__((deprecated)) UART1_DataReady(void);
 #endif
 
 #endif  // _UART1_H
-

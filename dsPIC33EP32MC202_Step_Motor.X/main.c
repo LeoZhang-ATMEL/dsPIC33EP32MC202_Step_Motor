@@ -62,7 +62,7 @@ int main(void)
     {
         // Add your application code
         APP_MAIN_Tasks();
-        APP_ADC_Tasks();
+        //APP_ADC_Tasks();
     }
     return 1; 
 }

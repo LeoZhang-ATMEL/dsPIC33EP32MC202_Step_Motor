@@ -52,6 +52,9 @@
   Section: Driver Interface
 */
 
+// PWM Default PWM Generator Interrupt Handler
+static void (*PWM_Generator1InterruptHandler)(void) = NULL;
+
 void PWM_Initialize (void)
 {
     // PCLKDIV 1; 
@@ -66,8 +69,8 @@ void PWM_Initialize (void)
     CHOP = 0x00;
     // PWMKEY 0; 
     PWMKEY = 0x00;
-    // MDCS Primary; FLTIEN disabled; CAM Center Aligned; DTC Positive dead time for all Output modes; TRGIEN disabled; XPRES disabled; ITB Primary; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
-    PWMCON1 = 0x204;
+    // MDCS Primary; FLTIEN disabled; CAM Center Aligned; DTC Positive dead time for all Output modes; TRGIEN enabled; XPRES disabled; ITB Primary; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
+    PWMCON1 = 0x604;
     // MDCS Primary; FLTIEN disabled; CAM Center Aligned; DTC Positive dead time for all Output modes; TRGIEN disabled; XPRES disabled; ITB Primary; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
     PWMCON2 = 0x204;
     // MDCS Primary; FLTIEN disabled; CAM Edge Aligned; DTC Positive dead time for all Output modes; TRGIEN disabled; XPRES disabled; ITB Master; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
@@ -138,6 +141,12 @@ void PWM_Initialize (void)
     AUXCON2 = 0x00;
     // CHOPLEN disabled; CHOPHEN disabled; BLANKSEL No state blanking; CHOPSEL No state blanking; 
     AUXCON3 = 0x00;
+    
+    /* Initialize PWM Generator Interrupt Handler*/
+    PWM_SetGenerator1InterruptHandler(&PWM_Generator1_CallBack);
+    
+    IFS5bits.PWM1IF = false;
+    IEC5bits.PWM1IE = true;
 
     // SYNCOEN disabled; SEIEN disabled; SESTAT disabled; SEVTPS 1; SYNCSRC SYNCI1; SYNCEN disabled; PTSIDL disabled; PTEN enabled; EIPU disabled; SYNCPOL disabled; 
     PTCON = 0x8000;
@@ -165,16 +174,20 @@ void __attribute__ ((weak)) PWM_Generator1_CallBack(void)
     // Add Application code here
 }
 
-void PWM_Generator1_Tasks ( void )
+void PWM_SetGenerator1InterruptHandler(void *handler)
 {
-	if(IFS3bits.PSEMIF)
-	{
-		// PWM Generator1 callback function 
-		PWM_Generator1_CallBack();
-		
-		// clear the PWM Generator1 interrupt flag
-		IFS5bits.PWM1IF = 0;
-	}
+    PWM_Generator1InterruptHandler = handler;
+}
+
+void __attribute__ ( ( interrupt, no_auto_psv ) ) _PWM1Interrupt (  )
+{
+    if(PWM_Generator1InterruptHandler)
+    {
+        // PWM Generator1 interrupt handler function 
+        PWM_Generator1InterruptHandler();
+    }
+	
+	IFS5bits.PWM1IF = false; 
 }
 
 void __attribute__ ((weak)) PWM_Generator2_CallBack(void)

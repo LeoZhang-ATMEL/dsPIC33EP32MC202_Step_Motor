@@ -52,15 +52,9 @@
 */
 void INTERRUPT_Initialize (void)
 {
-    //    UERI: UART1 Error
+    //    PWM1I: PWM1 Interrupt
     //    Priority: 1
-        IPC16bits.U1EIP = 1;
-    //    UTXI: UART1 Transmitter
-    //    Priority: 1
-        IPC3bits.U1TXIP = 1;
-    //    URXI: UART1 Receiver
-    //    Priority: 1
-        IPC2bits.U1RXIP = 1;
+        IPC23bits.PWM1IP = 1;
     //    ADI: ADC1 Convert Done
     //    Priority: 1
         IPC3bits.AD1IP = 1;

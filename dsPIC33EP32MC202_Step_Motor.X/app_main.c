@@ -17,6 +17,25 @@ void Timer_50us_Handler(void)
 {
     app_ticks++;
 }
+
+void APP_PWM_Gen1Event_CallBack(void)
+{
+    // Add Application code here
+    //IO_RB4_Toggle();
+}
+
+void APP_ADC1_Callback(void)
+{
+    //IO_RB4_Toggle();
+    adc_value.i_a = ADC1BUF0;   // Read the AN0/RA0
+    adc_value.i_b = ADC1BUF1;   // Read the AN1/RA1
+    adc_value.u_a = ADC1BUF2;   // Read the AN2/RB0
+    adc_value.u_a = ADC1BUF3;   // Read the AN3/RB1
+    adc_value.spd = ADC1BUF4;   // Read the AN4/RB2
+    adc_value.u_dc = ADC1BUF5;   // Read the AN5/RB3
+    return;
+} 
+
 void APP_MAIN_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
@@ -27,6 +46,9 @@ void APP_MAIN_Initialize ( void )
     /* Set PWM_EN High after init */
     IO_PWM_EN_SetHigh();
     TMR5_SetInterruptHandler(Timer_50us_Handler);
+    PWM_SetGenerator1InterruptHandler(APP_PWM_Gen1Event_CallBack);
+    ADC1_SetInterruptHandler(APP_ADC1_Callback);
+    ADC1_Enable();
     return;
 }
 void test_func(void)

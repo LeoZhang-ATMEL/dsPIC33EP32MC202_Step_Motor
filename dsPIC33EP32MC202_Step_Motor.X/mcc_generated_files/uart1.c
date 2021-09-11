@@ -8,20 +8,20 @@
     uart1.c
 
   @Summary
-    This is the generated driver implementation file for the UART1 driver using Foundation Services Library
+    This is the generated driver implementation file for the UART1 driver using PIC24 / dsPIC33 / PIC32MM MCUs
 
   @Description
     This header file provides implementations for driver APIs for UART1.
     Generation Information :
-        Product Revision  :  Foundation Services Library - pic24-dspic-pic32mm : v1.26
+        Product Revision  :  PIC24 / dsPIC33 / PIC32MM MCUs - 1.170.0
         Device            :  dsPIC33EP32MC202
     The generated drivers are tested against the following:
-        Compiler          :  XC16 1.30
-        MPLAB             :  MPLAB X 3.45
+        Compiler          :  XC16 v1.61
+        MPLAB             :  MPLAB X v5.45
 */
 
 /*
-    (c) 2016 Microchip Technology Inc. and its subsidiaries. You may use this
+    (c) 2020 Microchip Technology Inc. and its subsidiaries. You may use this
     software and any derivatives exclusively with Microchip products.
 
     THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
@@ -59,27 +59,29 @@ void UART1_Initialize(void)
      Make sure to set LAT bit corresponding to TxPin as high before UART initialization
 */
     // STSEL 1; IREN disabled; PDSEL 8N; UARTEN enabled; RTSMD disabled; USIDL disabled; WAKE disabled; ABAUD disabled; LPBACK disabled; BRGH enabled; URXINV disabled; UEN TX_RX; 
-    U1MODE = (0x8008 & ~(1<<15));  // disabling UARTEN bit   
+    // Data Bits = 8; Parity = None; Stop Bits = 1;
+    U1MODE = (0x8008 & ~(1<<15));  // disabling UARTEN bit
     // UTXISEL0 TX_ONE_CHAR; UTXINV disabled; OERR NO_ERROR_cleared; URXISEL RX_ONE_CHAR; UTXBRK COMPLETED; UTXEN disabled; ADDEN disabled; 
-    U1STA = 0x0;
-    // BaudRate = 9600; Frequency = 1842500 Hz; BRG 47; 
-    U1BRG = 0x2F;
+    U1STA = 0x00;
+    // BaudRate = 115200; Frequency = 60802500 Hz; BRG 131; 
+    U1BRG = 0x83;
     
-    U1MODEbits.UARTEN = 1;  // enabling UARTEN bit
-    U1STAbits.UTXEN = 1;   
+    U1MODEbits.UARTEN = 1;   // enabling UART ON bit
+    U1STAbits.UTXEN = 1;
 }
 
 uint8_t UART1_Read(void)
 {
     while(!(U1STAbits.URXDA == 1))
     {
+        
     }
 
     if ((U1STAbits.OERR == 1))
     {
         U1STAbits.OERR = 0;
     }
-
+    
     return U1RXREG;
 }
 
@@ -87,6 +89,7 @@ void UART1_Write(uint8_t txData)
 {
     while(U1STAbits.UTXBF == 1)
     {
+        
     }
 
     U1TXREG = txData;    // Write the data byte to the USART.
@@ -99,7 +102,7 @@ bool UART1_IsRxReady(void)
 
 bool UART1_IsTxReady(void)
 {
-    return (U1STAbits.TRMT && U1STAbits.UTXEN );
+    return ((!U1STAbits.UTXBF) && U1STAbits.UTXEN );
 }
 
 bool UART1_IsTxDone(void)
@@ -107,33 +110,27 @@ bool UART1_IsTxDone(void)
     return U1STAbits.TRMT;
 }
 
-/* !!! Deprecated API - This function may not be supported in a future release !!! */
-UART1_STATUS __attribute__((deprecated)) UART1_StatusGet (void)
+
+/*******************************************************************************
+
+  !!! Deprecated API !!!
+  !!! These functions will not be supported in future releases !!!
+
+*******************************************************************************/
+
+uint16_t __attribute__((deprecated)) UART1_StatusGet (void)
 {
     return U1STA;
 }
 
-/* !!! Deprecated API - This function may not be supported in a future release !!! */
-bool __attribute__((deprecated)) UART1_DataReady(void)
+void __attribute__((deprecated)) UART1_Enable(void)
 {
-    return UART1_IsRxReady();
+    U1MODEbits.UARTEN = 1;
+    U1STAbits.UTXEN = 1;
 }
 
-/* !!! Deprecated API - This function may not be supported in a future release !!! */
-bool __attribute__((deprecated)) UART1_is_tx_ready(void)
+void __attribute__((deprecated)) UART1_Disable(void)
 {
-    return UART1_IsTxReady();
+    U1MODEbits.UARTEN = 0;
+    U1STAbits.UTXEN = 0;
 }
-
-/* !!! Deprecated API - This function may not be supported in a future release !!! */
-bool __attribute__((deprecated)) UART1_is_rx_ready(void)
-{
-    return UART1_IsRxReady();
-}
-
-/* !!! Deprecated API - This function may not be supported in a future release !!! */
-bool __attribute__((deprecated)) UART1_is_tx_done(void)
-{
-    return UART1_IsTxDone();
-}
-

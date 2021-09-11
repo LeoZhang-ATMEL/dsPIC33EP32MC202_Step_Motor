@@ -75,7 +75,7 @@
  Remarks:
    None
  */
-#define ADC1_SCAN_MODE_SELECTED false
+#define ADC1_SCAN_MODE_SELECTED true
 
 /** ADC1 Channel Definition
  
@@ -338,35 +338,10 @@ inline static void ADC1_SoftwareTriggerDisable(void)
 */
 inline static void ADC1_ChannelSelect( ADC1_CHANNEL channel )
 {
-    switch(channel)
-    {
-        case channel_AN_I_A:
-                AD1CHS0bits.CH0SA= 0x0;
-                break;
-        case channel_AN_I_B:
-                AD1CHS0bits.CH0SA= 0x1;
-                break;
-        case channel_AN_U_A:
-                AD1CHS0bits.CH0SA= 0x2;
-                break;
-        case channel_AN_U_B:
-                AD1CHS0bits.CH0SA= 0x3;
-                break;
-        case channel_AN_SPD:
-                AD1CHS0bits.CH0SA= 0x4;
-                break;
-        case channel_AN_U_DC:
-                AD1CHS0bits.CH0SA= 0x5;
-                break;
-        case channel_CTMU_Temp:
-                AD1CHS0bits.CH0SA= 0x1E;
-                break;
-        case channel_CTMU:
-                AD1CHS0bits.CH0SA= 0x1F;
-                break;
-        default:
-                break;
-    }
+    /*This routine does not have any implementation since 
+            *Shared channels are put to scan.
+            *Dedicated channels are selected from UI.
+     */
 }
 
 /**
@@ -413,14 +388,28 @@ inline static uint16_t ADC1_ConversionResultGet( ADC1_CHANNEL channel )
     switch(channel)
     {
         case channel_AN_I_A:
-        case channel_AN_I_B:
-        case channel_AN_U_A:
-        case channel_AN_U_B:
-        case channel_AN_SPD:
-        case channel_AN_U_DC:
-        case channel_CTMU_Temp:
-        case channel_CTMU:
                 result = ADC1BUF0;
+                break;
+        case channel_AN_I_B:
+                result = ADC1BUF1;
+                break;
+        case channel_AN_U_A:
+                result = ADC1BUF2;
+                break;
+        case channel_AN_U_B:
+                result = ADC1BUF3;
+                break;
+        case channel_AN_SPD:
+                result = ADC1BUF4;
+                break;
+        case channel_AN_U_DC:
+                result = ADC1BUF5;
+                break;
+        case channel_CTMU_Temp:
+                result = ADC1BUF6;
+                break;
+        case channel_CTMU:
+                result = ADC1BUF7;
                 break;
         default:
                 break;
@@ -724,20 +713,20 @@ typedef enum
  */
 typedef enum 
 {
-    ADC1_SAMPLING_SOURCE_AUTO  =  0x7,
-    ADC1_SAMPLING_SOURCE_PWM2  =  0x1,
-    ADC1_SAMPLING_SOURCE_PWM1  =  0x0,
-    ADC1_SAMPLING_SOURCE_INT0  =  0x1,
-    ADC1_SAMPLING_SOURCE_PWM3  =  0x2,
-    ADC1_SAMPLING_SOURCE_PTGO15  =  0x6,
-    ADC1_SAMPLING_SOURCE_TMR3  =  0x2,
-    ADC1_SAMPLING_SOURCE_MANUAL  =  0x0,
-    ADC1_SAMPLING_SOURCE_PTGO12  =  0x3,
-    ADC1_SAMPLING_SOURCE_PWM_PRIMARY  =  0x3,
-    ADC1_SAMPLING_SOURCE_TMR5  =  0x4,
-    ADC1_SAMPLING_SOURCE_PTGO13  =  0x4,
-    ADC1_SAMPLING_SOURCE_PTGO14  =  0x5,
     ADC1_SAMPLING_SOURCE_CTMU  =  0x6,
+    ADC1_SAMPLING_SOURCE_PWM1  =  0x0,
+    ADC1_SAMPLING_SOURCE_TMR5  =  0x4,
+    ADC1_SAMPLING_SOURCE_PWM3  =  0x2,
+    ADC1_SAMPLING_SOURCE_PWM_PRIMARY  =  0x3,
+    ADC1_SAMPLING_SOURCE_PWM2  =  0x1,
+    ADC1_SAMPLING_SOURCE_PTGO14  =  0x5,
+    ADC1_SAMPLING_SOURCE_INT0  =  0x1,
+    ADC1_SAMPLING_SOURCE_PTGO12  =  0x3,
+    ADC1_SAMPLING_SOURCE_AUTO  =  0x7,
+    ADC1_SAMPLING_SOURCE_PTGO13  =  0x4,
+    ADC1_SAMPLING_SOURCE_PTGO15  =  0x6,
+    ADC1_SAMPLING_SOURCE_MANUAL  =  0x0,
+    ADC1_SAMPLING_SOURCE_TMR3  =  0x2,
 } ADC1_SAMPLING_SOURCE;
 
 /** ADC Conversion Channel Type Definition
