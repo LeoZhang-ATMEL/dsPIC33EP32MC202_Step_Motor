@@ -80,19 +80,19 @@
 #include "system.h"
 #include "system_types.h"
 #include "uart1.h"
+#include "tmr5.h"
 #include "adc1.h"
-#include "ext_int.h"
-#include "i2c1.h"
 #include "pwm.h"
 #include "interrupt_manager.h"
 #include "traps.h"
-#include "tmr5.h"
+#include "i2c1.h"
+#include "ext_int.h"
 
 void SYSTEM_Initialize(void)
 {
     PIN_MANAGER_Initialize();
-    CLOCK_Initialize();
     INTERRUPT_Initialize();
+    CLOCK_Initialize();
     UART1_Initialize();
     I2C1_Initialize();
     ADC1_Initialize();

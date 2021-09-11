@@ -66,10 +66,10 @@ void PWM_Initialize (void)
     CHOP = 0x00;
     // PWMKEY 0; 
     PWMKEY = 0x00;
-    // MDCS Primary; FLTIEN disabled; CAM Edge Aligned; DTC Dead-Time Compensation mode; TRGIEN disabled; XPRES disabled; ITB Primary; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
-    PWMCON1 = 0x2C0;
-    // MDCS Primary; FLTIEN disabled; CAM Edge Aligned; DTC Positive dead time for all Output modes; TRGIEN disabled; XPRES disabled; ITB Primary; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
-    PWMCON2 = 0x200;
+    // MDCS Primary; FLTIEN disabled; CAM Center Aligned; DTC Positive dead time for all Output modes; TRGIEN disabled; XPRES disabled; ITB Primary; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
+    PWMCON1 = 0x204;
+    // MDCS Primary; FLTIEN disabled; CAM Center Aligned; DTC Positive dead time for all Output modes; TRGIEN disabled; XPRES disabled; ITB Primary; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
+    PWMCON2 = 0x204;
     // MDCS Primary; FLTIEN disabled; CAM Edge Aligned; DTC Positive dead time for all Output modes; TRGIEN disabled; XPRES disabled; ITB Master; IUE disabled; CLIEN disabled; MTBS disabled; DTCP disabled; 
     PWMCON3 = 0x00;
     //FLTDAT PWM1L Low, PWM1H Low; SWAP disabled; OVRENH disabled; PENL enabled; PMOD Complementary Output Mode; OVRENL disabled; OSYNC disabled; POLL disabled; PENH enabled; CLDAT PWM1L Low, PWM1H Low; OVRDAT PWM1L Low, PWM1H Low; POLH disabled; 
