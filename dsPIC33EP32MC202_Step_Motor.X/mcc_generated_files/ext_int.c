@@ -51,7 +51,7 @@
 #include "ext_int.h"
 
 //***User Area Begin->code: Add External Interrupt handler specific headers 
-extern volatile uint32_t pulse_c;
+
 //***User Area End->code: Add External Interrupt handler specific headers
 
 /**
@@ -61,7 +61,6 @@ extern volatile uint32_t pulse_c;
  void __attribute__ ((weak)) EX_INT0_CallBack(void)
 {
     // Add your custom callback code here
-     pulse_c++;
 }
 
 /**

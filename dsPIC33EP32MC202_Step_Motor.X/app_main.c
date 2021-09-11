@@ -12,12 +12,20 @@ volatile uint32_t pulse_c = 0;
 
 // Timer ticks counter for 50us period
 volatile uint32_t app_ticks = 0;
+extern volatile uint32_t pulse_c;
 
 void Timer_50us_Handler(void)
 {
     app_ticks++;
 }
 
+ void EX_INT0_CallBack(void)
+{
+    // Add your custom callback code here
+    pulse_c++;
+}
+
+ 
 void APP_PWM_Gen1Event_CallBack(void)
 {
     // Add Application code here

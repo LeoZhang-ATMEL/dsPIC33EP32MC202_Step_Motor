@@ -7313,7 +7313,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="iocUserSet RB10"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="iocUserSet RB11"/>
@@ -10563,7 +10563,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.c</file>
-         <hash>4d950df65a6ba531a463441ae6cde558e2091f696444112f4f18dd2b5afb696c</hash>
+         <hash>c18e0f8d7c77451f5058ec751193ddb55913de1f80136cbe40bc06049e0c6137</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\traps.c</file>
@@ -10575,7 +10575,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\adc1.h</file>
-         <hash>30c917b2adf13fe7c312f0585a572fc8b12e348797c372a21fe6cc799df5e220</hash>
+         <hash>f6e5f825a74c7ddbc2610377b9d70fb619c813d7637b8829999fb08ea2cc00f7</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\ext_int.h</file>

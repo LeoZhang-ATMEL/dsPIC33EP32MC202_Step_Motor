@@ -107,6 +107,13 @@ Set Voltage
 
 -1
 --
+Pin
+RB7
+Toggle
+
+Pulse Input
+-1
+--
 &
 ## ADVANCEDSCL
 
